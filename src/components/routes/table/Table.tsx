@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../../api/tableData';
 import TableRow from './TableRow';
+import TableNavigation from './TableNavigation';
 
 interface Props {}
 
 export const Table: React.FC<Props> = () => {
   const [data, setData] = useState<any>({});
   const [start, setStart] = useState(0);
-  // const [stop, setStop] = useState(9);
   const [offset, setOffset] = useState(10);
 
   let stop = start + offset - 1;
@@ -42,31 +42,31 @@ export const Table: React.FC<Props> = () => {
       (item: object, index: number) => index >= start && index <= stop
     );
 
+    const pages = Math.ceil(data.results.length / offset);
+    const currentPage = Math.ceil(
+      (data.results.length - (data.results.length - stop)) / offset
+    );
+
+    const jumpToPage = (page: number) => {
+      if (page) {
+        const start = page * offset - offset;
+        setStart(start);
+      }
+    };
+
     console.log('paginatedData', paginatedData);
 
     return (
       <div>
         <h4>{data.results.length} results</h4>
         <TableRow data={paginatedData} />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            width: 1200
-          }}
-        >
-          <button onClick={() => changePage(false)}>туда</button>
-          <select
-            name="select"
-            defaultValue="10"
-            onChange={e => setOffset(+e.target.value)}
-          >
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
-          <button onClick={() => changePage()}>сюда</button>
-        </div>
+        <TableNavigation
+          changePage={changePage}
+          setOffset={setOffset}
+          pages={pages}
+          currentPage={currentPage}
+          jumpToPage={jumpToPage}
+        />
       </div>
     );
   }

@@ -1,9 +1,10 @@
 import React from 'react';
 
-interface Props {}
+interface Props {
+  data: Array<object>;
+}
 
-const TableRow: React.FC<Props> = (props: any) => {
-  const { data } = props;
+const TableRow: React.FC<Props> = ({ data }) => {
   console.log('data rows', data);
   return (
     <div>
