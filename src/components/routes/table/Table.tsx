@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../../api/tableData';
+import TableRow from './TableRow';
 
 interface Props {}
 
@@ -15,11 +16,18 @@ export const Table: React.FC<Props> = () => {
     fetchData();
   }, []);
 
-  console.log('table ', data);
+  console.table('table ', data.results);
 
-  return (
-    <div>
-      im table {data.results && data.results.map((item: any) => item.email)}
-    </div>
-  );
+  if (!data.results) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (data.results) {
+    return (
+      <div>
+        <h4>{data.results.length} results</h4>
+        <TableRow data={data.results} />
+      </div>
+    );
+  }
 };
