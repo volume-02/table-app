@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -28,6 +29,19 @@ module.exports = {
         }
       },
       {
+        // test: /\.$[ca]ss$/i,
+        test: /\.css/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: './build'
+            }
+          },
+          'css-loader'
+        ]
+      },
+      {
         test: /.(gif|png|jpe?g|svg)$/i,
         use: [
           {
@@ -46,13 +60,12 @@ module.exports = {
       }
     ]
   },
-  // devServer: {
-  //   historyApiFallback: true,
-  //   host: 'jsteam.sibedge.com',
-  //   port: 3000
-  // },
   plugins: [
     new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css'
+    }),
     new HtmlWebpackPlugin({
       template: './public/index.html'
     })
