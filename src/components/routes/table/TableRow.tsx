@@ -1,11 +1,11 @@
 import React from 'react';
+import { Avatar } from 'antd';
 
 interface Props {
   data: Array<object>;
 }
 
 const TableRow: React.FC<Props> = ({ data }) => {
-  console.log('data rows', data);
   return (
     <div>
       {data.map((item: any, index: number) => {
@@ -14,24 +14,28 @@ const TableRow: React.FC<Props> = ({ data }) => {
             key={index}
             style={{
               display: 'flex',
-              justifyContent: 'space-between',
-              width: 1200
+              justifyContent: 'space-between'
             }}
           >
-            <div>{item.gender}</div>
-            <div>{item.location.city}</div>
-            <div>{item.name.first}</div>
-            <div>{item.email}</div>
-            <div>{item.login.username}</div>
-            <div>{item.dob}</div>
-            <div>{item.registred}</div>
-            <div>{item.phone}</div>
-            <div>{item.cell}</div>
-            <div>{item.id.name}</div>
-            <div>
-              <img src={item.picture.medium} alt="avatar"></img>
+            <div style={{ width: 100 }}>{item.gender}</div>
+            <div style={{ width: 160 }}>{item.location.city}</div>
+            <div style={{ width: 100 }}>{item.name.last}</div>
+            <div style={{ width: 300 }}>{item.email}</div>
+            <div style={{ width: 160 }}>{item.login.username}</div>
+            <div style={{ width: 150 }}>{item.dob}</div>
+            <div style={{ width: 200 }}>{item.registered}</div>
+            <div style={{ width: 150 }}>{item.phone}</div>
+            <div style={{ width: 150 }}>{item.cell}</div>
+            <div style={{ width: 100 }}>{item.id.name}</div>
+            <div style={{ width: 90 }}>
+              <Avatar
+                shape="square"
+                size="large"
+                src={item.picture.medium}
+                alt="avatar"
+              />
             </div>
-            <div>{item.nat}</div>
+            <div style={{ width: 90 }}>{item.nat}</div>
           </div>
         );
       })}
