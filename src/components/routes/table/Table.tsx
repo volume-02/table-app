@@ -7,7 +7,7 @@ import TableFilter from './TableFilter';
 interface Props {}
 
 export const Table: React.FC<Props> = () => {
-  const [data, setData] = useState<any>({});
+  const [data, setData] = useState<any>([]);
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(10);
   const [filteredData, setFilteredData] = useState([]);
@@ -16,7 +16,7 @@ export const Table: React.FC<Props> = () => {
 
   const fetchData = async () => {
     const { data } = await getData();
-    setData(data);
+    setData(data.results);
     setFilteredData(data.results);
   };
 
@@ -24,7 +24,7 @@ export const Table: React.FC<Props> = () => {
     fetchData();
   }, []);
 
-  console.table('table ', data.results);
+  console.table('table ', data);
 
   const changePage = (next: boolean = true) => {
     if (next) {
@@ -34,30 +34,34 @@ export const Table: React.FC<Props> = () => {
     }
   };
 
-  if (!data.results) {
+  if (!data) {
     return <h1>Loading...</h1>;
   }
 
-  if (data.results) {
+  if (data) {
     let paginatedData = filteredData.filter(
       (item: object, index: number) => index >= start && index <= stop
     );
 
     const filteredByLastName = (lastName: string) => {
-      const filteredData = data.results.filter((item: any) =>
-        item.name.last.includes(lastName)
+      const filteredData = data.filter(
+        (item: any) =>
+          item.name.last.includes(lastName) &&
+          !item.phone.replace(/\D+/g, '').includes(null)
       );
       setFilteredData(filteredData);
       setStart(0);
     };
 
     const filteredByPhone = (phoneNumber: String) => {
-      const normalizedNumber = +`${phoneNumber}`.replace(/\D+/g, ''); //разобраться почему при вводе символа выражение становится равным 0
+      const normalizedNumber = phoneNumber.replace(/\D+/g, ''); //разобраться почему при вводе символа выражение становится равным 0
+      console.log('normalizedNumber', normalizedNumber);
 
-      const filteredData = data.results.filter((item: any) =>
-        item.phone.replace(/\D+/g, '').includes(+phoneNumber)
+      console.log('phoneNumber', phoneNumber);
+
+      const filteredData = data.filter((item: any) =>
+        item.phone.replace(/\D+/g, '').includes(phoneNumber)
       );
-      console.log('phoneNumber', normalizedNumber);
       setFilteredData(filteredData);
       setStart(0);
     };
@@ -76,7 +80,7 @@ export const Table: React.FC<Props> = () => {
 
     return (
       <div>
-        <h4>{data.results.length} results</h4>
+        <h4>{filteredData.length} results</h4>
         <TableFilter
           filterLastName={filteredByLastName}
           filterPhone={filteredByPhone}
