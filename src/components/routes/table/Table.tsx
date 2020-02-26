@@ -51,9 +51,20 @@ export const Table: React.FC<Props> = () => {
       setStart(0);
     };
 
-    const pages = Math.ceil(data.results.length / offset);
+    const filteredByPhone = (phoneNumber: String) => {
+      const normalizedNumber = +`${phoneNumber}`.replace(/\D+/g, ''); //разобраться почему при вводе символа выражение становится равным 0
+
+      const filteredData = data.results.filter((item: any) =>
+        item.phone.replace(/\D+/g, '').includes(+phoneNumber)
+      );
+      console.log('phoneNumber', normalizedNumber);
+      setFilteredData(filteredData);
+      setStart(0);
+    };
+
+    const pages = Math.ceil(filteredData.length / offset);
     const currentPage = Math.ceil(
-      (data.results.length - (data.results.length - stop)) / offset
+      (filteredData.length - (filteredData.length - stop)) / offset
     );
 
     const jumpToPage = (page: number) => {
@@ -66,7 +77,10 @@ export const Table: React.FC<Props> = () => {
     return (
       <div>
         <h4>{data.results.length} results</h4>
-        <TableFilter filterLastName={filteredByLastName} />
+        <TableFilter
+          filterLastName={filteredByLastName}
+          filterPhone={filteredByPhone}
+        />
         <TableRow data={paginatedData} />
         <TableNavigation
           changePage={changePage}
