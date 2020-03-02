@@ -43,29 +43,6 @@ export const Table: React.FC<Props> = () => {
       (item: object, index: number) => index >= start && index <= stop
     );
 
-    const filteredByLastName = (lastName: string, phoneNumber: string) => {
-      const filteredData = data.filter(
-        (item: any) =>
-          item.name.last.includes(lastName) &&
-          !item.phone.replace(/\D+/g, "").includes(phoneNumber)
-      );
-      setFilteredData(filteredData);
-      setStart(0);
-    };
-
-    const filteredByPhone = (phoneNumber: String) => {
-      const normalizedNumber = phoneNumber.replace(/\D+/g, ""); //разобраться почему при вводе символа выражение становится равным 0
-      console.log("normalizedNumber", normalizedNumber);
-
-      console.log("phoneNumber", phoneNumber);
-
-      const filteredData = data.filter((item: any) =>
-        item.phone.replace(/\D+/g, "").includes(phoneNumber)
-      );
-      setFilteredData(filteredData);
-      setStart(0);
-    };
-
     const pages = Math.ceil(filteredData.length / offset);
     const currentPage = Math.ceil(
       (filteredData.length - (filteredData.length - stop)) / offset
