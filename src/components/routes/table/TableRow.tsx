@@ -1,5 +1,5 @@
-import React from 'react';
-import { Avatar } from 'antd';
+import React from "react";
+import { Avatar } from "antd";
 
 interface Props {
   data: Array<object>;
@@ -13,13 +13,15 @@ const TableRow: React.FC<Props> = ({ data }) => {
           <div
             key={index}
             style={{
-              display: 'flex',
-              justifyContent: 'space-between'
+              display: "flex",
+              justifyContent: "space-between"
             }}
           >
             <div style={{ width: 100 }}>{item.gender}</div>
             <div style={{ width: 160 }}>{item.location.city}</div>
-            <div style={{ width: 100 }}>{item.name.last}</div>
+            <div style={{ width: 100 }}>
+              {`${item.name.last} ${item.name.first}`}
+            </div>
             <div style={{ width: 300 }}>{item.email}</div>
             <div style={{ width: 160 }}>{item.login.username}</div>
             <div style={{ width: 150 }}>{item.dob}</div>

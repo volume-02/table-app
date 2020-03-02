@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { getData } from '../../../api/tableData';
-import TableRow from './TableRow';
-import TableNavigation from './TableNavigation';
-import TableFilter from './TableFilter';
+import React, { useEffect, useState } from "react";
+import { getData } from "../../../api/tableData";
+import TableRow from "./TableRow";
+import TableNavigation from "./TableNavigation";
+import TableFilter from "./TableFilter";
 
 interface Props {}
 
@@ -24,7 +24,7 @@ export const Table: React.FC<Props> = () => {
     fetchData();
   }, []);
 
-  console.table('table ', data);
+  console.table("table ", data);
 
   const changePage = (next: boolean = true) => {
     if (next) {
@@ -43,24 +43,24 @@ export const Table: React.FC<Props> = () => {
       (item: object, index: number) => index >= start && index <= stop
     );
 
-    const filteredByLastName = (lastName: string) => {
+    const filteredByLastName = (lastName: string, phoneNumber: string) => {
       const filteredData = data.filter(
         (item: any) =>
           item.name.last.includes(lastName) &&
-          !item.phone.replace(/\D+/g, '').includes(null)
+          !item.phone.replace(/\D+/g, "").includes(phoneNumber)
       );
       setFilteredData(filteredData);
       setStart(0);
     };
 
     const filteredByPhone = (phoneNumber: String) => {
-      const normalizedNumber = phoneNumber.replace(/\D+/g, ''); //разобраться почему при вводе символа выражение становится равным 0
-      console.log('normalizedNumber', normalizedNumber);
+      const normalizedNumber = phoneNumber.replace(/\D+/g, ""); //разобраться почему при вводе символа выражение становится равным 0
+      console.log("normalizedNumber", normalizedNumber);
 
-      console.log('phoneNumber', phoneNumber);
+      console.log("phoneNumber", phoneNumber);
 
       const filteredData = data.filter((item: any) =>
-        item.phone.replace(/\D+/g, '').includes(phoneNumber)
+        item.phone.replace(/\D+/g, "").includes(phoneNumber)
       );
       setFilteredData(filteredData);
       setStart(0);
@@ -82,8 +82,9 @@ export const Table: React.FC<Props> = () => {
       <div>
         <h4>{filteredData.length} results</h4>
         <TableFilter
-          filterLastName={filteredByLastName}
-          filterPhone={filteredByPhone}
+          data={data}
+          setFilteredData={setFilteredData}
+          setStart={setStart}
         />
         <TableRow data={paginatedData} />
         <TableNavigation
@@ -96,4 +97,6 @@ export const Table: React.FC<Props> = () => {
       </div>
     );
   }
+
+  return null;
 };
