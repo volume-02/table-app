@@ -12,8 +12,8 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
   const { RangePicker } = DatePicker;
 
   const completeDateRange = {
-    from: moment(data.map((item: any) => item.dob)).min(),
-    to: moment(data.map((item: any) => item.dob)).max()
+    from: moment.min(data.map((item: any) => moment(item.dob))),
+    to: moment.max(data.map((item: any) => moment(item.dob)))
   };
 
   const [filter, setFilter] = useState({
@@ -28,21 +28,28 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
       (item: any) =>
         item.name.last.includes(filter.name) &&
         item.phone.replace(/\D+/g, "").includes(filter.phone) &&
-        item.location.city.includes(filter.city)
-      // &&
-      // filter.date.from <= moment(item.dob) &&
-      // moment(item.dob) <= filter.date.to
+        item.location.city.includes(filter.city) &&
+        filter.date.from <= moment(item.dob) &&
+        moment(item.dob) <= filter.date.to
     );
 
     setFilteredData(filteredData);
     setStart(0);
   };
 
+  // console.log(
+  //   "date",
+  //   filter.date.from > moment("1993-02-08 11:04:13"),
+  //   moment.min(data.map((item: any) => item.dob)),
+  //   filter.date.from <= moment(data[0].dob) &&
+  //     moment(data[0].dob) <= filter.date.to
+  //   // filter.date.to
+  // );
+
   console.log(
-    "object",
-    filter.date.from,
-    moment("1993-02-08 11:04:13"),
-    filter.date.to
+    "completeDateRange",
+    completeDateRange.from,
+    completeDateRange.to
   );
 
   const handleClear = () => {
@@ -51,18 +58,27 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
 
   const handleRange = range => {
     const [from, to] = range;
-    setFilter({ ...filter, date: { from, to } });
+    if (range.length) {
+      setFilter({ ...filter, date: { from, to } });
+    } else {
+      setFilter({
+        ...filter,
+        date: { from: completeDateRange.from, to: completeDateRange.to }
+      });
+    }
+    console.log("from, to", from, to, range);
+    console.log("filter.date", filter.date.from, filter.date.to);
   };
 
   useEffect(() => {
     filterData();
   }, [filter]);
 
-  const handleChange = (target, property) => {
+  const handleChangeFilter = (target, property) => {
     setFilter({ ...filter, [property]: target.value });
   };
 
-  console.log("filter", filter);
+  console.log("filter", filter.date.from.format("YYYY-MM-DD HH:mm:ss"));
 
   return (
     <div
@@ -71,23 +87,25 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
       <Search
         placeholder="Начните вводить фамилию..."
         value={filter.name}
-        onChange={({ target }) => handleChange(target, "name")}
+        onChange={({ target }) => handleChangeFilter(target, "name")}
       />
       <Search
         type="number"
         value={filter.phone}
         placeholder="Начните вводить телефон..."
-        onChange={({ target }) => handleChange(target, "phone")}
+        onChange={({ target }) => handleChangeFilter(target, "phone")}
       />
       <Search
         placeholder="Начните вводить город..."
         value={filter.city}
-        onChange={({ target }) => handleChange(target, "city")}
+        onChange={({ target }) => handleChangeFilter(target, "city")}
       />
       <div style={{ width: 900 }}>
         <RangePicker
-          // value={(filter.date.from, filter.date.to)}
-          onChange={value => handleRange(value)}
+          onChange={value => {
+            console.log("value", value);
+            handleRange(value);
+          }}
         />
       </div>
       <Button type="primary" onClick={handleClear}>
