@@ -4,7 +4,7 @@ import { Button, InputNumber, Select, Typography } from 'antd';
 interface Props {
   changePage: (next?: boolean) => void;
   setOffset: (offset: number) => void;
-  jumpToPage: (page?: number) => void;
+  jumpToPage: (page: number) => void;
   pages: number;
   currentPage: number;
 }

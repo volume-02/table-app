@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from './components/routes/table';
+import { Table } from './routes/table';
 
 export default function App() {
   return (

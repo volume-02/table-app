@@ -1,10 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Input, Button, DatePicker } from "antd";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import { Input, Button, DatePicker } from 'antd';
+import moment, { Moment } from 'moment';
+import { RangePickerValue } from 'antd/lib/date-picker/interface';
 
 interface Props {
   filterLastName: (name: String) => void;
   filterPhone: (phoneNumber: String) => void;
+  data: Array<Object>;
+  setFilteredData: (filteredData: Array<Object>) => void;
+  setStart: (value: number) => void;
+}
+
+interface Person {
+  gender;
+  location;
+  name;
+  email;
+  login;
+  dob;
+  registered;
+  phone;
+  cell;
+  id;
+  picture;
+  nat;
 }
 
 const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
@@ -17,17 +36,18 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
   };
 
   const [filter, setFilter] = useState({
-    name: "",
-    phone: "",
-    city: "",
+    name: '',
+    phone: '',
+    city: '',
     date: completeDateRange
   });
 
+  console.log('item', data);
   const filterData = () => {
     const filteredData = data.filter(
       (item: any) =>
         item.name.last.includes(filter.name) &&
-        item.phone.replace(/\D+/g, "").includes(filter.phone) &&
+        item.phone.replace(/\D+/g, '').includes(filter.phone) &&
         item.location.city.includes(filter.city) &&
         filter.date.from <= moment(item.dob) &&
         moment(item.dob) <= filter.date.to
@@ -37,27 +57,13 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
     setStart(0);
   };
 
-  // console.log(
-  //   "date",
-  //   filter.date.from > moment("1993-02-08 11:04:13"),
-  //   moment.min(data.map((item: any) => item.dob)),
-  //   filter.date.from <= moment(data[0].dob) &&
-  //     moment(data[0].dob) <= filter.date.to
-  //   // filter.date.to
-  // );
-
-  console.log(
-    "completeDateRange",
-    completeDateRange.from,
-    completeDateRange.to
-  );
-
   const handleClear = () => {
-    setFilter({ name: "", phone: "", city: "", date: completeDateRange });
+    setFilter({ name: '', phone: '', city: '', date: completeDateRange });
   };
 
-  const handleRange = range => {
+  const handleRange = (range: RangePickerValue) => {
     const [from, to] = range;
+    console.log('range', range);
     if (range.length) {
       setFilter({ ...filter, date: { from, to } });
     } else {
@@ -66,44 +72,44 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
         date: { from: completeDateRange.from, to: completeDateRange.to }
       });
     }
-    console.log("from, to", from, to, range);
-    console.log("filter.date", filter.date.from, filter.date.to);
+    console.log('from, to', from, to, range);
+    console.log('filter.date', filter.date.from, filter.date.to);
   };
 
   useEffect(() => {
     filterData();
   }, [filter]);
 
-  const handleChangeFilter = (target, property) => {
+  const handleChangeFilter = (target: any, property: string) => {
     setFilter({ ...filter, [property]: target.value });
   };
 
-  console.log("filter", filter.date.from.format("YYYY-MM-DD HH:mm:ss"));
+  console.log('filter', filter.date.from.format('YYYY-MM-DD HH:mm:ss'));
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-between", width: 1200 }}
+      style={{ display: 'flex', justifyContent: 'space-between', width: 1200 }}
     >
       <Search
         placeholder="Начните вводить фамилию..."
         value={filter.name}
-        onChange={({ target }) => handleChangeFilter(target, "name")}
+        onChange={({ target }) => handleChangeFilter(target, 'name')}
       />
       <Search
         type="number"
         value={filter.phone}
         placeholder="Начните вводить телефон..."
-        onChange={({ target }) => handleChangeFilter(target, "phone")}
+        onChange={({ target }) => handleChangeFilter(target, 'phone')}
       />
       <Search
         placeholder="Начните вводить город..."
         value={filter.city}
-        onChange={({ target }) => handleChangeFilter(target, "city")}
+        onChange={({ target }) => handleChangeFilter(target, 'city')}
       />
       <div style={{ width: 900 }}>
         <RangePicker
           onChange={value => {
-            console.log("value", value);
+            console.log('value', value);
             handleRange(value);
           }}
         />

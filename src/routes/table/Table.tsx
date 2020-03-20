@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { getData } from "../../../api/tableData";
-import TableRow from "./TableRow";
-import TableNavigation from "./TableNavigation";
-import TableFilter from "./TableFilter";
+import React, { useEffect, useState } from 'react';
+import { getData } from '../../api/tableData';
+import TableRow from './TableRow';
+import TableNavigation from './TableNavigation';
+import TableFilter from './TableFilter';
 
 interface Props {}
 
@@ -23,8 +23,6 @@ export const Table: React.FC<Props> = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.table("table ", data);
 
   const changePage = (next: boolean = true) => {
     if (next) {
