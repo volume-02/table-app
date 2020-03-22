@@ -1,29 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Input, Button, DatePicker } from 'antd';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
 
 interface Props {
-  filterLastName: (name: String) => void;
-  filterPhone: (phoneNumber: String) => void;
   data: Array<Object>;
   setFilteredData: (filteredData: Array<Object>) => void;
   setStart: (value: number) => void;
-}
-
-interface Person {
-  gender;
-  location;
-  name;
-  email;
-  login;
-  dob;
-  registered;
-  phone;
-  cell;
-  id;
-  picture;
-  nat;
 }
 
 const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
@@ -35,14 +18,13 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
     to: moment.max(data.map((item: any) => moment(item.dob)))
   };
 
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<any>({
     name: '',
     phone: '',
     city: '',
     date: completeDateRange
   });
 
-  console.log('item', data);
   const filterData = () => {
     const filteredData = data.filter(
       (item: any) =>
@@ -72,8 +54,6 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
         date: { from: completeDateRange.from, to: completeDateRange.to }
       });
     }
-    console.log('from, to', from, to, range);
-    console.log('filter.date', filter.date.from, filter.date.to);
   };
 
   useEffect(() => {

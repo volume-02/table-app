@@ -1,5 +1,5 @@
-import React from "react";
-import { Avatar } from "antd";
+import React from 'react';
+import { Avatar } from 'antd';
 
 interface Props {
   data: Array<object>;
@@ -7,14 +7,14 @@ interface Props {
 
 const TableRow: React.FC<Props> = ({ data }) => {
   return (
-    <div>
+    <>
       {data.map((item: any, index: number) => {
         return (
           <div
             key={index}
             style={{
-              display: "flex",
-              justifyContent: "space-between"
+              display: 'flex',
+              justifyContent: 'space-between'
             }}
           >
             <div style={{ width: 100 }}>{item.gender}</div>
@@ -41,7 +41,7 @@ const TableRow: React.FC<Props> = ({ data }) => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

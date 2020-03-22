@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../api/tableData';
-import TableRow from './TableRow';
-import TableNavigation from './TableNavigation';
+import TableRow from '../../common/table/TableRow';
+import TableNavigation from '../../common/table/TableNavigation';
 import TableFilter from './TableFilter';
+import Table from '../../common/table';
 
 interface Props {}
 
-export const Table: React.FC<Props> = () => {
+export const PersonsTable: React.FC<Props> = () => {
   const [data, setData] = useState<any>([]);
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(10);
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState<Array<Object>>([]);
 
   let stop = start + offset - 1;
 
@@ -46,7 +47,7 @@ export const Table: React.FC<Props> = () => {
       (filteredData.length - (filteredData.length - stop)) / offset
     );
 
-    const jumpToPage = (page: number) => {
+    const jumpToPage = (page?: number) => {
       if (page) {
         const start = page * offset - offset;
         setStart(start);
@@ -54,8 +55,7 @@ export const Table: React.FC<Props> = () => {
     };
 
     return (
-      <div>
-        <h4>{filteredData.length} results</h4>
+      <Table rows={filteredData.length}>
         <TableFilter
           data={data}
           setFilteredData={setFilteredData}
@@ -69,7 +69,7 @@ export const Table: React.FC<Props> = () => {
           currentPage={currentPage}
           jumpToPage={jumpToPage}
         />
-      </div>
+      </Table>
     );
   }
 

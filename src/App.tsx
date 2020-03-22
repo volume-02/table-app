@@ -1,10 +1,10 @@
 import React from 'react';
-import { Table } from './routes/table';
+import { PersonsTable } from './routes/personsTable';
 
 export default function App() {
   return (
     <div>
-      <Table />
+      <PersonsTable />
     </div>
   );
 }

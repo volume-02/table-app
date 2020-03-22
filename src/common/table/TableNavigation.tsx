@@ -4,7 +4,7 @@ import { Button, InputNumber, Select, Typography } from 'antd';
 interface Props {
   changePage: (next?: boolean) => void;
   setOffset: (offset: number) => void;
-  jumpToPage: (page: number) => void;
+  jumpToPage: (page?: number) => void;
   pages: number;
   currentPage: number;
 }
@@ -28,7 +28,7 @@ const TableNavigation: React.FC<Props> = ({
       }}
     >
       <Button onClick={() => changePage(false)}>сюда</Button>
-      <Select defaultValue={10} onChange={(value: number) => setOffset(value)}>
+      <Select defaultValue={10} onChange={(value: number) => setOffset(+value)}>
         <Option value="10">10</Option>
         <Option value="20">20</Option>
         <Option value="30">30</Option>
