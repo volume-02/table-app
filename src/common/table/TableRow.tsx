@@ -1,11 +1,11 @@
 import React from 'react';
 import { Avatar } from 'antd';
 
-interface Props {
+interface ITableRowProps {
   data: Array<object>;
 }
 
-const TableRow: React.FC<Props> = ({ data }) => {
+const TableRow: React.FC<ITableRowProps> = ({ data }) => {
   return (
     <>
       {data.map((item: any, index: number) => {

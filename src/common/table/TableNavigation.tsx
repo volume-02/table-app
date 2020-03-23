@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, InputNumber, Select, Typography } from 'antd';
 
-interface Props {
+interface ITableNavigationProps {
   changePage: (next?: boolean) => void;
   setOffset: (offset: number) => void;
   jumpToPage: (page?: number) => void;
@@ -9,7 +9,7 @@ interface Props {
   currentPage: number;
 }
 
-const TableNavigation: React.FC<Props> = ({
+const TableNavigation: React.FC<ITableNavigationProps> = ({
   changePage,
   setOffset,
   pages,
