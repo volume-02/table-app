@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
-import TableFilter from '../../common/Table/TableFilter';
+import TableFilter from 'common/Table/TableFilter';
 
 interface Props {
   data: Array<Object>;

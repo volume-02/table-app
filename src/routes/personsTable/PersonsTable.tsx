@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getData } from '../../api/tableData';
-import TableRow from '../../common/Table/TableRow';
-import TableNavigation from '../../common/Table/TableNavigation';
+import { getData } from 'api/tableData';
+import TableRow from 'common/Table/TableRow';
+import TableNavigation from 'common/Table/TableNavigation';
 import PersonTableFilter from './PersonTableFilter';
-import Table from '../../common/Table';
+import Table from 'common/Table';
 
 interface Props {}
 
