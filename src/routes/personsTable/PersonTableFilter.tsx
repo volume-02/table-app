@@ -2,24 +2,25 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
 import TableFilter from 'common/Table/TableFilter';
+import { IPerson, IFilter } from 'types/types';
 
-interface Props {
-  data: Array<Object>;
-  setFilteredData: (filteredData: Array<Object>) => void;
+interface IPersonTableFilterProps {
+  data: Array<IPerson>;
+  setFilteredData: (filteredData: Array<IPerson>) => void;
   setStart: (value: number) => void;
 }
 
-const PersonTableFilter: React.FC<Props> = ({
+const PersonTableFilter: React.FC<IPersonTableFilterProps> = ({
   data,
   setFilteredData,
   setStart
 }) => {
   const completeDateRange = {
-    from: moment.min(data.map((item: any) => moment(item.dob))),
-    to: moment.max(data.map((item: any) => moment(item.dob)))
+    from: moment.min(data.map((item: IPerson) => moment(item.dob))),
+    to: moment.max(data.map((item: IPerson) => moment(item.dob)))
   };
 
-  const [filter, setFilter] = useState<any>({
+  const [filter, setFilter] = useState<IFilter>({
     name: '',
     phone: '',
     city: '',
@@ -28,7 +29,7 @@ const PersonTableFilter: React.FC<Props> = ({
 
   const filterData = () => {
     const filteredData = data.filter(
-      (item: any) =>
+      (item: IPerson) =>
         item.name.last.includes(filter.name) &&
         item.phone.replace(/\D+/g, '').includes(filter.phone) &&
         item.location.city.includes(filter.city) &&
@@ -46,7 +47,7 @@ const PersonTableFilter: React.FC<Props> = ({
 
   const handleRange = (range: RangePickerValue) => {
     const [from, to] = range;
-    if (range.length) {
+    if (from && to) {
       setFilter({ ...filter, date: { from, to } });
     } else {
       setFilter({
@@ -67,8 +68,9 @@ const PersonTableFilter: React.FC<Props> = ({
     });
   }, [data]);
 
-  const handleChangeFilter = (target: any, property: string) => {
-    setFilter({ ...filter, [property]: target.value });
+  const handleChangeFilter = (target: EventTarget, property: string) => {
+    var element = target as HTMLInputElement;
+    setFilter({ ...filter, [property]: element.value });
   };
 
   return (

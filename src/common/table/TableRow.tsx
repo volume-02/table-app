@@ -1,14 +1,15 @@
 import React from 'react';
 import { Avatar } from 'antd';
+import { IPerson } from 'types/types';
 
 interface ITableRowProps {
-  data: Array<object>;
+  data: IPerson[];
 }
 
 const TableRow: React.FC<ITableRowProps> = ({ data }) => {
   return (
     <>
-      {data.map((item: any, index: number) => {
+      {data.map((item: IPerson, index: number) => {
         return (
           <div
             key={index}

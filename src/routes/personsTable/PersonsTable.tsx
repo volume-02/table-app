@@ -4,14 +4,16 @@ import TableRow from 'common/Table/TableRow';
 import TableNavigation from 'common/Table/TableNavigation';
 import PersonTableFilter from './PersonTableFilter';
 import Table from 'common/Table';
+import TableHeader from 'common/Table/TableHeader';
+import { columnNames } from 'consts';
+import { IPerson } from 'types/types';
+interface IPersonsTableProps {}
 
-interface Props {}
-
-export const PersonsTable: React.FC<Props> = () => {
-  const [data, setData] = useState<any>([]);
+export const PersonsTable: React.FC<IPersonsTableProps> = () => {
+  const [data, setData] = useState<IPerson[]>([]);
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(10);
-  const [filteredData, setFilteredData] = useState<Array<Object>>([]);
+  const [filteredData, setFilteredData] = useState<IPerson[]>([]);
 
   let stop = start + offset - 1;
 
@@ -39,7 +41,7 @@ export const PersonsTable: React.FC<Props> = () => {
 
   if (data) {
     let paginatedData = filteredData.filter(
-      (_: object, index: number) => index >= start && index <= stop
+      (_: any, index: number) => index >= start && index <= stop
     );
 
     const pages = Math.ceil(filteredData.length / offset);
@@ -61,6 +63,7 @@ export const PersonsTable: React.FC<Props> = () => {
           setFilteredData={setFilteredData}
           setStart={setStart}
         />
+        <TableHeader columnNames={columnNames} />
         <TableRow data={paginatedData} />
         <TableNavigation
           changePage={changePage}

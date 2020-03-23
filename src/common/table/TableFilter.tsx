@@ -1,11 +1,13 @@
 import React, { ReactElement } from 'react';
 import { Input, Button, DatePicker } from 'antd';
+import { IFilter } from 'types/types';
+import { RangePickerValue } from 'antd/lib/date-picker/interface.d';
 
 interface ITableFilterProps {
-  filter: any;
-  handleChangeFilter: any;
-  handleRange: any;
-  handleClear: any;
+  filter: IFilter;
+  handleChangeFilter: (target: EventTarget, property: string) => void;
+  handleRange: (range: RangePickerValue) => void;
+  handleClear: () => void;
 }
 
 export default function TableFilter({
