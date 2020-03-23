@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
+    "test": "jest --coverage",
     "lint": "./node_modules/.bin/eslint --ext=ts --ext=tsx"
   },
   "devDependencies": {
@@ -38,9 +39,14 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "@types/enzyme": "^3.10.5",
+    "@types/jest": "^25.1.4",
     "antd": "^3.26.12",
-    "moment": "^2.24.0",
     "axios": "^0.19.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.1.0",
+    "moment": "^2.24.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.2",

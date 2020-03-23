@@ -39,7 +39,7 @@ export const PersonsTable: React.FC<Props> = () => {
 
   if (data) {
     let paginatedData = filteredData.filter(
-      (item: object, index: number) => index >= start && index <= stop
+      (_: object, index: number) => index >= start && index <= stop
     );
 
     const pages = Math.ceil(filteredData.length / offset);

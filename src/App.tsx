@@ -3,8 +3,8 @@ import { PersonsTable } from './routes/personsTable';
 
 export default function App() {
   return (
-    <div>
+    <>
       <PersonsTable />
-    </div>
+    </>
   );
 }
