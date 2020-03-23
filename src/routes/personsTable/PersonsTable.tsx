@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getData } from '../../api/tableData';
-import TableRow from '../../common/table/TableRow';
-import TableNavigation from '../../common/table/TableNavigation';
-import TableFilter from './TableFilter';
-import Table from '../../common/table';
+import TableRow from '../../common/Table/TableRow';
+import TableNavigation from '../../common/Table/TableNavigation';
+import PersonTableFilter from './PersonTableFilter';
+import Table from '../../common/Table';
 
 interface Props {}
 
@@ -56,7 +56,7 @@ export const PersonsTable: React.FC<Props> = () => {
 
     return (
       <Table rows={filteredData.length}>
-        <TableFilter
+        <PersonTableFilter
           data={data}
           setFilteredData={setFilteredData}
           setStart={setStart}

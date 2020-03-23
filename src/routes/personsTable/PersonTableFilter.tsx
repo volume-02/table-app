@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button, DatePicker } from 'antd';
 import moment from 'moment';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
+import TableFilter from '../../common/Table/TableFilter';
 
 interface Props {
   data: Array<Object>;
@@ -9,10 +9,11 @@ interface Props {
   setStart: (value: number) => void;
 }
 
-const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
-  const { Search } = Input;
-  const { RangePicker } = DatePicker;
-
+const PersonTableFilter: React.FC<Props> = ({
+  data,
+  setFilteredData,
+  setStart
+}) => {
   const completeDateRange = {
     from: moment.min(data.map((item: any) => moment(item.dob))),
     to: moment.max(data.map((item: any) => moment(item.dob)))
@@ -45,7 +46,6 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
 
   const handleRange = (range: RangePickerValue) => {
     const [from, to] = range;
-    console.log('range', range);
     if (range.length) {
       setFilter({ ...filter, date: { from, to } });
     } else {
@@ -60,45 +60,25 @@ const TableFilter: React.FC<Props> = ({ data, setFilteredData, setStart }) => {
     filterData();
   }, [filter]);
 
+  useEffect(() => {
+    setFilter({
+      ...filter,
+      date: { from: completeDateRange.from, to: completeDateRange.to }
+    });
+  }, [data]);
+
   const handleChangeFilter = (target: any, property: string) => {
     setFilter({ ...filter, [property]: target.value });
   };
 
-  console.log('filter', filter.date.from.format('YYYY-MM-DD HH:mm:ss'));
-
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'space-between', width: 1200 }}
-    >
-      <Search
-        placeholder="Начните вводить фамилию..."
-        value={filter.name}
-        onChange={({ target }) => handleChangeFilter(target, 'name')}
-      />
-      <Search
-        type="number"
-        value={filter.phone}
-        placeholder="Начните вводить телефон..."
-        onChange={({ target }) => handleChangeFilter(target, 'phone')}
-      />
-      <Search
-        placeholder="Начните вводить город..."
-        value={filter.city}
-        onChange={({ target }) => handleChangeFilter(target, 'city')}
-      />
-      <div style={{ width: 900 }}>
-        <RangePicker
-          onChange={value => {
-            console.log('value', value);
-            handleRange(value);
-          }}
-        />
-      </div>
-      <Button type="primary" onClick={handleClear}>
-        Очистить
-      </Button>
-    </div>
+    <TableFilter
+      filter={filter}
+      handleChangeFilter={handleChangeFilter}
+      handleRange={handleRange}
+      handleClear={handleClear}
+    />
   );
 };
 
-export default TableFilter;
+export default PersonTableFilter;
