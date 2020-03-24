@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { Avatar } from 'antd';
 import { IPerson } from 'types/types';
 import s from './Table.module.css';
+import moment from 'moment';
 import { columnNames } from 'consts';
 
 interface ITableRowProps {
@@ -26,8 +27,12 @@ export default function TableRow({ data }: ITableRowProps): ReactElement {
             <div style={{ width: columnNames[4].width }}>
               {item.login.username}
             </div>
-            <div style={{ width: columnNames[5].width }}>{item.dob}</div>
-            <div style={{ width: columnNames[6].width }}>{item.registered}</div>
+            <div style={{ width: columnNames[5].width }}>
+              {moment(item.dob).format('DD.MM.YY')}
+            </div>
+            <div style={{ width: columnNames[6].width }}>
+              {moment(item.registered).format('DD.MM.YY HH:MM')}
+            </div>
             <div style={{ width: columnNames[7].width }}>{item.phone}</div>
             <div style={{ width: columnNames[8].width }}>{item.cell}</div>
             <div style={{ width: columnNames[9].width }}>{item.id.name}</div>

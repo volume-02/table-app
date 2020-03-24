@@ -8,6 +8,7 @@ import TableHeader from 'common/Table/TableHeader';
 import { columnNames } from 'consts';
 import { IPerson } from 'types/types';
 import Preloader from 'common/Preloader';
+
 interface IPersonsTableProps {}
 
 export default function PersonsTable({}: IPersonsTableProps): ReactElement {
@@ -76,6 +77,5 @@ export default function PersonsTable({}: IPersonsTableProps): ReactElement {
       </Table>
     );
   }
-  return <h1>Error</h1>
+  return <h1>Error</h1>;
 }
-
