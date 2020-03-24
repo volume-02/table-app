@@ -4,6 +4,14 @@
   width: 100%;
 }
 
+.tableContainer {
+  margin: 0 auto;
+  max-width: 85rem;
+  border: 1px solid rgba(43, 138, 167, 0.15);
+  border-radius: 3px;
+  padding: 1rem;
+}
+
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -33,7 +41,7 @@
 }
 
 .searchContainer {
-  max-width: 20rem;
+  max-width: 15rem;
 }
 
 .button {
