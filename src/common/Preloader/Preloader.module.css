@@ -1,6 +1,6 @@
 .preloader {
   border: 6px solid #f3f3f3;
-  border-top: 6px solid #474f55;
+  border-top: 6px solid rgba(43, 128, 167, 0.911);
   border-radius: 50%;
   width: 90px;
   height: 90px;

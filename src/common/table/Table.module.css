@@ -13,6 +13,20 @@
   margin: 1rem 0 1rem 0;
 }
 
+.rowContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid rgba(43, 138, 167, 0.15);
+}
+
+.rowContainer:last-child {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: none;
+}
+
 .datePickerContainer {
   max-width: 30rem;
   display: flex;

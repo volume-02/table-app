@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { getData } from 'api/tableData';
 import TableRow from 'common/Table/TableRow';
 import TableNavigation from 'common/Table/TableNavigation';
-import PersonTableFilter from './PersonTableFilter';
+import PersonTableFilter from 'routes/PersonsTable/PersonTableFilter';
 import Table from 'common/Table';
 import TableHeader from 'common/Table/TableHeader';
 import { columnNames } from 'consts';
@@ -10,7 +10,7 @@ import { IPerson } from 'types/types';
 import Preloader from 'common/Preloader';
 interface IPersonsTableProps {}
 
-export const PersonsTable: React.FC<IPersonsTableProps> = () => {
+export default function PersonsTable({}: IPersonsTableProps): ReactElement {
   const [data, setData] = useState<IPerson[]>();
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(10);
@@ -76,6 +76,6 @@ export const PersonsTable: React.FC<IPersonsTableProps> = () => {
       </Table>
     );
   }
+  return <h1>Error</h1>
+}
 
-  return null;
-};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Button, InputNumber, Select, Typography } from 'antd';
 import s from './Table.module.css';
 
@@ -10,13 +10,13 @@ interface ITableNavigationProps {
   currentPage: number;
 }
 
-const TableNavigation: React.FC<ITableNavigationProps> = ({
+export default function TableNavigation({
   changePage,
   setOffset,
   pages,
   currentPage,
   jumpToPage
-}) => {
+}: ITableNavigationProps): ReactElement {
   const { Option } = Select;
   const { Text } = Typography;
 
@@ -38,6 +38,4 @@ const TableNavigation: React.FC<ITableNavigationProps> = ({
       </Button>
     </div>
   );
-};
-
-export default TableNavigation;
+}

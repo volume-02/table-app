@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Avatar } from 'antd';
 import { IPerson } from 'types/types';
 import s from './Table.module.css';
@@ -8,12 +8,12 @@ interface ITableRowProps {
   data: IPerson[];
 }
 
-const TableRow: React.FC<ITableRowProps> = ({ data }) => {
+export default function TableRow({ data }: ITableRowProps): ReactElement {
   return (
-    <>
+    <div>
       {data.map((item: IPerson, index: number) => {
         return (
-          <div key={index} className={s.container}>
+          <div key={index} className={s.rowContainer}>
             {/* columnNames[0].width is ugly, it will be fixed */}
             <div style={{ width: columnNames[0].width }}>{item.gender}</div>
             <div style={{ width: columnNames[1].width }}>
@@ -43,8 +43,6 @@ const TableRow: React.FC<ITableRowProps> = ({ data }) => {
           </div>
         );
       })}
-    </>
+    </div>
   );
-};
-
-export default TableRow;
+}
