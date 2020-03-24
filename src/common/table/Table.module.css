@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(161, 152, 151, 0.7);
+  margin: 1rem 0 1rem 0;
+}
+
+.datePickerContainer {
+  max-width: 30rem;
+  display: flex;
+}
+
+.searchContainer {
+  max-width: 20rem;
+}
+
+.button {
+  margin-left: 1rem;
+}

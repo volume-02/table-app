@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, InputNumber, Select, Typography } from 'antd';
+import s from './Table.module.css';
 
 interface ITableNavigationProps {
   changePage: (next?: boolean) => void;
@@ -20,18 +21,14 @@ const TableNavigation: React.FC<ITableNavigationProps> = ({
   const { Text } = Typography;
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        width: 1200
-      }}
-    >
+    <div className={s.container}>
       <Button onClick={() => changePage(false)}>сюда</Button>
       <Select defaultValue={10} onChange={(value: number) => setOffset(+value)}>
-        <Option value="10">10</Option>
-        <Option value="20">20</Option>
-        <Option value="30">30</Option>
+        {[10, 20, 30].map(item => (
+          <Option key={item} value={item}>
+            {item}
+          </Option>
+        ))}
       </Select>
       <Text strong>pages: {pages}</Text>
       <InputNumber type="number" onChange={value => jumpToPage(value)} />

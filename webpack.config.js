@@ -15,7 +15,7 @@ module.exports = {
 
   // adding .ts and .tsx to resolve.extensions will help babel look for .ts and .tsx files to transpile
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', 'css'],
     modules: [path.resolve(__dirname, 'src'), 'node_modules']
   },
 
@@ -30,17 +30,23 @@ module.exports = {
         }
       },
       {
-        // test: /\.$[ca]ss$/i,
-        test: /\.css/i,
+        test: /\.css$/,
         use: [
+          'style-loader',
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: 'css-loader',
             options: {
-              publicPath: './build'
+              importLoaders: 1,
+              modules: true
             }
-          },
-          'css-loader'
-        ]
+          }
+        ],
+        include: /\.module\.css$/
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        exclude: /\.module\.css$/
       },
       {
         test: /.(gif|png|jpe?g|svg)$/i,

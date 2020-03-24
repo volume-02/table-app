@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { Input, Button, DatePicker } from 'antd';
 import { IFilter } from 'types/types';
 import { RangePickerValue } from 'antd/lib/date-picker/interface.d';
+import s from './Table.module.css';
 
 interface ITableFilterProps {
   filter: IFilter;
@@ -20,35 +21,38 @@ export default function TableFilter({
   const { RangePicker } = DatePicker;
 
   return (
-    <div
-      style={{ display: 'flex', justifyContent: 'space-between', width: 1200 }}
-    >
+    <div className={s.container}>
       <Search
+        className={s.searchContainer}
         placeholder="Начните вводить фамилию..."
         value={filter.name}
         onChange={({ target }) => handleChangeFilter(target, 'name')}
       />
       <Search
+        className={s.searchContainer}
         type="number"
         value={filter.phone}
         placeholder="Начните вводить телефон..."
         onChange={({ target }) => handleChangeFilter(target, 'phone')}
       />
       <Search
+        className={s.searchContainer}
         placeholder="Начните вводить город..."
         value={filter.city}
         onChange={({ target }) => handleChangeFilter(target, 'city')}
       />
-      <div style={{ width: 900 }}>
+      <div
+        className={s.datePickerContainer}
+      >
         <RangePicker
           onChange={value => {
             handleRange(value);
           }}
         />
+        <Button className={s.button} type="primary" onClick={handleClear}>
+          Очистить
+        </Button>
       </div>
-      <Button type="primary" onClick={handleClear}>
-        Очистить
-      </Button>
     </div>
   );
 }

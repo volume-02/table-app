@@ -59,3 +59,8 @@ export interface IFilter {
   city: string;
   date: IDateObject;
 }
+
+export interface IHeader {
+  width: number;
+  name: string;
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Avatar } from 'antd';
 import { IPerson } from 'types/types';
+import s from './Table.module.css';
+import { columnNames } from 'consts';
 
 interface ITableRowProps {
   data: IPerson[];
@@ -11,26 +13,25 @@ const TableRow: React.FC<ITableRowProps> = ({ data }) => {
     <>
       {data.map((item: IPerson, index: number) => {
         return (
-          <div
-            key={index}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between'
-            }}
-          >
-            <div style={{ width: 100 }}>{item.gender}</div>
-            <div style={{ width: 160 }}>{item.location.city}</div>
-            <div style={{ width: 100 }}>
+          <div key={index} className={s.container}>
+            {/* columnNames[0].width is ugly, it will be fixed */}
+            <div style={{ width: columnNames[0].width }}>{item.gender}</div>
+            <div style={{ width: columnNames[1].width }}>
+              {item.location.city}
+            </div>
+            <div style={{ width: columnNames[2].width }}>
               {`${item.name.last} ${item.name.first}`}
             </div>
-            <div style={{ width: 300 }}>{item.email}</div>
-            <div style={{ width: 160 }}>{item.login.username}</div>
-            <div style={{ width: 150 }}>{item.dob}</div>
-            <div style={{ width: 200 }}>{item.registered}</div>
-            <div style={{ width: 150 }}>{item.phone}</div>
-            <div style={{ width: 150 }}>{item.cell}</div>
-            <div style={{ width: 100 }}>{item.id.name}</div>
-            <div style={{ width: 90 }}>
+            <div style={{ width: columnNames[3].width }}>{item.email}</div>
+            <div style={{ width: columnNames[4].width }}>
+              {item.login.username}
+            </div>
+            <div style={{ width: columnNames[5].width }}>{item.dob}</div>
+            <div style={{ width: columnNames[6].width }}>{item.registered}</div>
+            <div style={{ width: columnNames[7].width }}>{item.phone}</div>
+            <div style={{ width: columnNames[8].width }}>{item.cell}</div>
+            <div style={{ width: columnNames[9].width }}>{item.id.name}</div>
+            <div style={{ width: columnNames[10].width }}>
               <Avatar
                 shape="square"
                 size="large"
@@ -38,7 +39,7 @@ const TableRow: React.FC<ITableRowProps> = ({ data }) => {
                 alt="avatar"
               />
             </div>
-            <div style={{ width: 90 }}>{item.nat}</div>
+            <div style={{ width: columnNames[11].width }}>{item.nat}</div>
           </div>
         );
       })}
