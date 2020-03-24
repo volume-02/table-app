@@ -7,10 +7,11 @@ import Table from 'common/Table';
 import TableHeader from 'common/Table/TableHeader';
 import { columnNames } from 'consts';
 import { IPerson } from 'types/types';
+import Preloader from 'common/Preloader';
 interface IPersonsTableProps {}
 
 export const PersonsTable: React.FC<IPersonsTableProps> = () => {
-  const [data, setData] = useState<IPerson[]>([]);
+  const [data, setData] = useState<IPerson[]>();
   const [start, setStart] = useState(0);
   const [offset, setOffset] = useState(10);
   const [filteredData, setFilteredData] = useState<IPerson[]>([]);
@@ -36,7 +37,7 @@ export const PersonsTable: React.FC<IPersonsTableProps> = () => {
   };
 
   if (!data) {
-    return <h1>Loading...</h1>;
+    return <Preloader />;
   }
 
   if (data) {
