@@ -1,0 +1,24 @@
+.preloader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid rgba(43, 128, 167, 0.911);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  animation: spin 2s linear infinite;
+}
+
+.preloaderContainer {
+  margin-top: 10rem;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

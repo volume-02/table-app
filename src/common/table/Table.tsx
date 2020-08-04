@@ -8,7 +8,7 @@ interface ITableProps {
 
 export default function Table({
   children,
-  rows = 0
+  rows = 0,
 }: ITableProps): ReactElement {
   return (
     <div className={s.tableContainer}>
